@@ -14,7 +14,6 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Chronometer;
-
 import java.util.Date;
 
 public class BoundService extends Service {
@@ -31,6 +30,9 @@ public class BoundService extends Service {
         mChronometer.start();
     }
 
+    
+    //When binding to the service, we return an interface to the service
+    //// This is the object that receives interactions from clients
     @Override
     public IBinder onBind(Intent intent) {
         Log.v(LOG_TAG, "in onBind");
@@ -38,24 +40,29 @@ public class BoundService extends Service {
     }
 
     @Override
+    //rebind the service
     public void onRebind(Intent intent) {
         Log.v(LOG_TAG, "in onRebind");
         super.onRebind(intent);
     }
 
     @Override
+    // unbind the service
     public boolean onUnbind(Intent intent) {
         Log.v(LOG_TAG, "in onUnbind");
         return true;
     }
 
     @Override
+    //cancels or destroys the service
     public void onDestroy() {
         super.onDestroy();
         Log.v(LOG_TAG, "in onDestroy");
         mChronometer.stop();
     }
 
+    
+    // gets current system date and time
     public static String getCurrentTimeStamp(){
         try {
 
